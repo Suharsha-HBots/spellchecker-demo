@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Spellchecker</title>
+  <script src="js/main.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+<body>
+
+   <header>
+    Spellchecker
+   </header>
+  
+  <p class="loading">Loading... please wait</p>
+
+  <article id="app">
+      <form name = "myform" action="" method="post">
+    <input v-model="input" type="text" id="input" placeholder="Enter your text here" onkeyup="myFunction()">
+      </form>
+    <div class="result">
+        <p> If the spelling is correct, the word appears in green, otherwise it appears in red.</p>
+        <p> The text you typed is: <span id="demo"></span></p>
+    </div>
+  </article>
+    <script>
+    function myFunction() {
+      document.myform.submit();
+      var x = {{ txt }};
+      document.getElementById("demo").innerHTML = x;
+    }
+</script>
+  <style>
+  #app {
+    display: block !important;
+  }
+  .loading {
+    display: none;
+  }
+  </style>
+</body>
+</html>

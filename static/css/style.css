@@ -1,0 +1,95 @@
+body {
+	background:#f5f5f5;
+	font-family: 'Source Sans Pro', sans-serif;
+	margin:0;
+	padding:0;
+}
+	
+header {
+	background:#000;
+	color:#fff;
+	padding: 15px 5%;
+}
+
+
+header .links {
+	float:right;
+	font-size:15px;
+}
+	
+header .links a {
+	margin-right:15px;
+	color:#fff;
+	text-decoration:none;
+}
+
+header .links a:hover {
+	color:#2196F3;
+}
+	
+	
+#input {
+	display:block;
+	width:90%;
+	margin:0 auto;
+	margin-top:30px;
+	padding:0;
+	border:0;
+	padding:15px;
+	margin-bottom:15px;
+	font-size:15px;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	border-radius:3px;
+}
+
+
+.result {
+	padding-top:4px;
+	width: 92%;
+	margin: 0 auto;
+}
+
+	
+.token-analysis {
+	display:inline-block;
+	margin-right: 10px;
+	text-align:center;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	vertical-align: text-top;
+}
+
+div.token {
+	font-weight:500;
+	padding:10px 20px;
+	margin-bottom:10px;
+	border-radius:3px;
+	box-shadow: 0 3px 20px rgba(255,0,0,0.3), 0 3px 60px rgba(0,0,0,0.13);
+	background:red;
+	color:#fff;
+}
+
+.token-result {
+	border:1px solid #000;
+	padding:5px;
+	margin-bottom:5px;
+	border-radius:3px;
+}
+
+.tag {border-color:#E91E63 !important;}
+
+
+#app {
+	display:none;
+}
+
+
+.loading {
+	text-align: center;
+	margin-top:20vh;
+}
+
+.correct {
+	box-shadow: 0 3px 20px rgba(0, 33, 255, 0.3), 0 3px 60px rgba(0,0,0,0.13) !important;
+	background: green !important;
+}
