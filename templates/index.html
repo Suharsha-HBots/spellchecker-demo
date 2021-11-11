@@ -24,12 +24,10 @@
   
   <p class="loading">Loading... please wait</p>
 
-  <article id="app">
     <input type="text" id="input" placeholder="Enter your text here" onkeyup="myFunction_new">
-    <div class="result">
+
         <p> If the spelling is correct, the word appears in green, otherwise it appears in red.</p>
         <p> The text you typed is: <span id="demo"></span></p>
-    </div>
       <script>
     var text = document.getElementById("input");
     function myFunction() {
@@ -41,6 +39,5 @@
       document.getElementById("demo").innerHTML = x;
     }
 </script>
-  </article>
 </body>
 </html>
