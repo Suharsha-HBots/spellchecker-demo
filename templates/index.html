@@ -28,9 +28,9 @@
     <script>
     var text = document.getElementById("input");
     function myFunction() {
-      document.getElementById("myform").submit();
+      document.forms["myform"].submit();
       var x = {{ a }};
-      document.getElementById("demo").innerHTML = text;
+      document.getElementById("demo").innerHTML = a;
     }
 </script>
   <style>
