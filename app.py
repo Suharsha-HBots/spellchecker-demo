@@ -12,13 +12,15 @@ def index():
     txt = ""
     correct = ""
     spell = SpellChecker()
-    spell.word_frequency.load_text_file('./dict.txt')
+    # spell.word_frequency.load_text_file('./dict.txt')
 
     if request.method == "POST":
         txt = request.form.get('val')
         txt = re.sub("[^\w\s]", "", txt)
         words = txt.split()
         misspelled = spell.unknown(words)
+
+        txt = "blah blah blah"
 
         for word in misspelled:
             correct = correct + spell.correction(word)
