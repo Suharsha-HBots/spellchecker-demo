@@ -27,8 +27,8 @@
   </article>
     <script>
     function myFunction() {
-      document.myform.submit();
-      var x = txt ;
+      document.getElementById("myform").submit();
+      var x = {{ txt }};
       document.getElementById("demo").innerHTML = x;
     }
 </script>
