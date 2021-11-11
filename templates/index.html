@@ -18,7 +18,7 @@
 
   <article id="app">
       <form id = "myform" action="" method="post">
-    <input type="text" id="input" placeholder="Enter your text here">
+    <input type="text" id="input" placeholder="Enter your text here" onkeyup="myFunction">
       </form>
     <div class="result">
         <p> If the spelling is correct, the word appears in green, otherwise it appears in red.</p>
@@ -27,7 +27,6 @@
   </article>
     <script>
     var text = document.getElementById("input");
-    text.onkeyup = myFunction();
     function myFunction() {
       document.getElementById("myform").submit();
       var x = {{ a }};
