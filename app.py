@@ -1,13 +1,14 @@
 from flask import Flask, render_template, request, redirect,abort,flash
 from spellchecker import SpellChecker
 import re
+import random
 
 app = Flask(__name__)
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["POST"])
 def index():
     misspelled = []
-    list1 = []
+    result = ""
     candidates = []
     txt = ""
     correct = ""
@@ -15,20 +16,23 @@ def index():
     # spell.word_frequency.load_text_file('./dict.txt')
 
     if request.method == "POST":
-        txt = request.form.get('val')
-        txt = re.sub("[^\w\s]", "", txt)
-        words = txt.split()
-        misspelled = spell.unknown(words)
+        txt = request.form.get("data")
+        print(txt)
+        if txt is not None:
+            txt = re.sub("[^\w\s]", "", txt)
+            words = txt.split()
+            misspelled = spell.unknown(words)
 
-        txt = "blah blah blah"
-
-        for word in misspelled:
-            correct = correct + spell.correction(word)
-            list1.append(spell.correction(word))
-            candidates.append(spell.candidates(word))
-
-    return render_template('index.html',a=txt , correct = correct, misspelled=misspelled,list1=list1,list2=candidates,len=len(misspelled) ,len1=len(list1))
+            for word in words:
+                if spell.unknown([word]):
+                    correct = spell.correction(word)
+                    candidates = spell.candidates(word)
+                else:
+                    correct = word
+                result = result + " " + correct
+                print(result)
+    return render_template('index.html',a=result , correct = correct, misspelled=misspelled,list1=result,list2=candidates,len=len(misspelled))
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5000, debug=True)

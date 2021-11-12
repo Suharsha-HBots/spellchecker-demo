@@ -1,22 +1,142 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Spellchecker</title>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        * {
+          padding: 0;
+          margin: 0;
+          box-sizing: border-box;
+          font-family: 'Montserrat', sans-serif;
+        }
+        body {
+          width: 100vw;
+          height: 100vh;
+          background: #f2f4f6;
+          overflow: hidden;
+        }
+        ul {
+          list-style: none;
+        }
+        .context-menu {
+          position: absolute;
+        }
+        .menu {
+          display: flex;
+          flex-direction: column;
+          background-color: #fff;
+          border-radius: 10px;
+          box-shadow: 0 10px 20px rgb(64 64 64 / 5%);
+          padding: 10px 0;
+        }
+        .menu > li > a {
+          font: inherit;
+          border: 0;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          position: relative;
+          text-decoration: unset;
+          color: #000;
+          font-weight: 500;
+          transition: 0.5s linear;
+          -webkit-transition: 0.5s linear;
+          -moz-transition: 0.5s linear;
+          -ms-transition: 0.5s linear;
+          -o-transition: 0.5s linear;
+        }
+        .menu > li > a:hover {
+          background:#f1f3f7;
+          color: #4b00ff;
+        }
+        .menu > li > a > i {
+          padding-right: 10px;
+        }
+        .menu > li.trash > a:hover {
+          color: red;
+        }
+
+      #app {
+        display: block !important;
+      }
+      .loading {
+        display: none;
+      }
+    </style>
+</head>
 <body>
+<header>
+    Spellchecker
+   </header>
+<article>
+    <input v-model="input" type="text" id="input" placeholder="Enter your text here" autocomplete="off" onkeyup="myFunction()">
+    <div class="result">
+        <p><span id="result"></span></p>
+        <p><span id="result1">{{ a }}</span></p>
+    </div>
+  </article>
 
-<p>A function is triggered when the user releases a key in the input field. The function outputs the actual key/letter that was released inside the text field.</p>
+<div id="contextMenu" class="context-menu" style="display: none">
+        <ul class="menu">
+            {% for list in list2 %}
+            <li id={{ list }} class="share" onclick="changeWord(this.id)"><a href="#"><i class="fa fa-share" aria-hidden="true"></i> {{ list }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 
-<form id="myForm" action="" method="post" autocomplete="off">
-<p><input type="text" name="val" id="input" placeholder="Enter your text here" onkeyup="myFunction()"> </p>
-</form>
-
-<p>My name is: <span id="demo"></span></p>
-
-<script>
+<script  type="text/javascript">
+function hideMenu() {
+            document.getElementById("contextMenu")
+                    .style.display = "none"
+        }
+document.onclick = hideMenu;
 function myFunction() {
-  document.getElementById("myForm").submit();
-  var x = a;
-  document.getElementById("demo").innerHTML = x;
-}
-</script>
+    var text = document.getElementById("input").value;
+    const request = new XMLHttpRequest();
+    request.open('POST', '/');
+    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    request.onreadystatechange = function() {
+        const response = request.responseText;
+        document.getElementById('result').innerHTML = response;
+    };
+    request.send("data="+text);
+};
 
+function changeWord(id) {
+    var text = document.getElementById(id).value;
+    var str = document.getElementById("input").value;
+    var indices = [];
+    for(var i=0; i<str.length;i++) {
+        if (str[i] === " ") indices.push(i);
+    }
+    if (str.length === (indices[indices.length-1]+1)) {
+        str = str.substring(0, indices[indices.length-2]);
+        }
+    else {
+    str = str.substring(0, indices[indices.length-1]);
+    }
+    temp = str + " " + id;
+    document.getElementById("input").value = temp;
+};
+
+document.getElementById("input").addEventListener("contextmenu",function (e) {
+    var cursorPosition = document.getElementById('input').selectionStart;
+    e.preventDefault();
+    if(document.getElementById("contextMenu").style.display == "block"){
+            hideMenu();
+        }
+        else{
+            var menu = document.getElementById("contextMenu")
+            menu.style.display = 'block';
+            menu.style.left = e.pageX + "px";
+            menu.style.top = e.pageY + "px";
+        }
+});
+</script>
 </body>
 </html>
